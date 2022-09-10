@@ -11,6 +11,7 @@ const SavedBooks = () => {
   const data = useQuery(GET_ME)
   const userData = data.data?.me || [];
   const [removeBook] = useMutation(REMOVE_BOOK);
+  console.log('how many books', userData.savedBooks);
 
   // const userDataLength = Object.keys(userData).length;
 
@@ -72,11 +73,11 @@ const SavedBooks = () => {
       <Container>
         <h2>
           {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+            ? `Viewing ${userData.storedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {/* {userData.savedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
@@ -90,7 +91,7 @@ const SavedBooks = () => {
                 </Card.Body>
               </Card>
             );
-          })}
+          })} */}
         </CardColumns>
       </Container>
     </>

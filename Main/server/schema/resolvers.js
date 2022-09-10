@@ -29,20 +29,24 @@ const resolvers = {
 
             return {token, user};
         },
-        addUser: async (parent, {username, email, password}) => {
-            const user = await User.create(username, email, password);
+        addUser: async (parent, args) => {
+            const user = await User.create(args);
             const token = signToken(user);
             console.log('hello', args)
             return { token, user };
 
         },
         saveBook: async (parent, args, context) => {
+            console.log('inside saveBook');
             if (context.user) {
+                console.log('this is args', args.storedBooks)
                 const updateUser = await User.findByIdAndUpdate(
                     { _id: context.user._id},
-                    { $addToSet: { savedBooks: args} },
+                    { $addToSet: { savedBooks: args.storedBooks } },
                     { new: true, runValidators: true}
                 );
+                console.log('this is updated user', updateUser);
+                console.log(updateUser.savedBooks)
                 return updateUser;
             }
             
